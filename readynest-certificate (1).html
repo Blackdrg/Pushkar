@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>ReadyNest — Certificate</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;min-height:100vh;background:linear-gradient(175deg,#cde5f5 0%,#d8ecf7 25%,#e8edf4 60%,#e2e5ec 100%);display:flex;align-items:center;justify-content:center;padding:40px 16px}
+.card{background:#fff;border-radius:24px;padding:36px 28px 30px;box-shadow:0 2px 6px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.08),0 24px 56px rgba(0,0,0,.05);width:100%;max-width:390px;animation:fadeUp .4s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.logo-wrap{text-align:center;margin-bottom:26px}
+.verified-wrap{text-align:center;margin-bottom:20px}
+.v-circle{width:72px;height:72px;background:#bfedd6;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;animation:popIn .4s cubic-bezier(.34,1.56,.64,1) .2s both}
+@keyframes popIn{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+.cert-title{text-align:center;font-size:24px;font-weight:800;color:#111;margin-bottom:9px;letter-spacing:-.3px}
+.cert-desc{text-align:center;font-size:13.5px;color:#aaa;line-height:1.6;margin-bottom:28px;padding:0 8px}
+.details{width:100%;border-collapse:collapse;margin-bottom:24px}
+.details tr{border-bottom:1px solid #f0f0f0;opacity:0;animation:rowIn .3s ease forwards}
+.details tr:last-child{border-bottom:none}
+.details tr:nth-child(1){animation-delay:.18s}
+.details tr:nth-child(2){animation-delay:.25s}
+.details tr:nth-child(3){animation-delay:.32s}
+.details tr:nth-child(4){animation-delay:.39s}
+.details tr:nth-child(5){animation-delay:.46s}
+@keyframes rowIn{to{opacity:1}}
+.details td{padding:15px 2px;vertical-align:middle}
+.lbl{font-size:10.5px;font-weight:600;color:#c0c0c0;letter-spacing:.09em;text-transform:uppercase;width:46%}
+.val{font-size:15px;font-weight:700;color:#111;text-align:right}
+.val-active{font-size:15px;font-weight:700;color:#1aad78;text-align:right;letter-spacing:.05em}
+.card-footer{text-align:center;font-size:12px;color:#ccc;padding-top:15px;border-top:1px solid #f0f0f0}
+#qr-view h2{font-size:20px;font-weight:800;color:#111;margin-bottom:6px;letter-spacing:-.3px;text-align:center}
+.sub{font-size:13px;color:#aaa;text-align:center;margin-bottom:22px;line-height:1.6}
+.badge{display:inline-flex;align-items:center;gap:6px;background:#e8faf2;color:#1aad78;font-size:12px;font-weight:700;letter-spacing:.05em;padding:6px 14px;border-radius:999px;margin-bottom:18px;width:100%;justify-content:center}
+#qr-wrap{display:flex;align-items:center;justify-content:center;background:#f8fafb;border-radius:16px;padding:20px;margin-bottom:18px;border:1.5px solid #eef0f3}
+#qr-wrap canvas,#qr-wrap img{border-radius:8px}
+.instructions{font-size:12.5px;color:#999;background:#f8f9fb;border-radius:10px;padding:12px 16px;margin-bottom:20px;line-height:1.6;text-align:left}
+.instructions strong{color:#555}
+.spinner{width:34px;height:34px;border:2.5px solid #d0f0e4;border-top-color:#1aad78;border-radius:50%;margin:16px auto;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-txt{font-size:13px;color:#bbb;text-align:center;margin-bottom:12px}
+.hidden{display:none!important}
+.err-box{background:#fff5f5;border-radius:12px;padding:16px;text-align:center;color:#c0392b;font-size:13px;line-height:1.6;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo-wrap">
+    <svg width="160" height="68" viewBox="0 0 160 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="56" y="14" width="48" height="32" rx="5" fill="white" stroke="#1c1c1c" stroke-width="2.3"/>
+      <path d="M66 14 C66 3 94 3 94 14" fill="none" stroke="#1c1c1c" stroke-width="2.3" stroke-linecap="round"/>
+      <rect x="62" y="20" width="36" height="19" rx="3.5" fill="#1aad78"/>
+      <circle cx="71" cy="20" r="4.5" fill="white"/>
+      <path d="M73 29.5 L77 34 L86 24" stroke="white" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="64" cy="46.5" r="2.3" fill="#1c1c1c"/>
+      <circle cx="96" cy="46.5" r="2.3" fill="#1c1c1c"/>
+      <text x="35" y="63" font-family="Inter,sans-serif" font-weight="900" font-size="18" letter-spacing="0.8" fill="#1c1c1c">READY</text>
+      <text x="87" y="63" font-family="Inter,sans-serif" font-weight="900" font-size="18" letter-spacing="0.8" fill="#1aad78">NEST</text>
+      <line x1="87" y1="65.5" x2="125" y2="65.5" stroke="#1aad78" stroke-width="1.6"/>
+    </svg>
+  </div>
+
+  <div id="loading-view">
+    <div class="spinner"></div>
+    <div class="loading-txt">Loading…</div>
+  </div>
+
+  <div id="cert-view" class="hidden">
+    <div class="verified-wrap">
+      <div class="v-circle">
+        <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
+          <circle cx="19" cy="19" r="18" fill="#bfedd6"/>
+          <path d="M11 19.5 L16 24.5 L27 13" stroke="#1aad78" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="cert-title">Certificate Verified</div>
+    <div class="cert-desc">This offer letter is authentic and was issued by ReadyNest Corp.</div>
+    <table class="details">
+      <tr><td class="lbl">Candidate Name</td><td class="val" id="c-name">—</td></tr>
+      <tr><td class="lbl">Position</td>      <td class="val" id="c-pos">—</td></tr>
+      <tr><td class="lbl">Reference No</td>  <td class="val" id="c-ref">—</td></tr>
+      <tr><td class="lbl">Issue Date</td>    <td class="val" id="c-date">—</td></tr>
+      <tr><td class="lbl">Status</td>        <td class="val-active">ACTIVE</td></tr>
+    </table>
+    <div class="card-footer">ReadyNest Verification System &copy; 2026</div>
+  </div>
+
+  <div id="qr-view" class="hidden">
+    <h2>Scan to Verify Certificate</h2>
+    <p class="sub">Scan this QR code to open Pushkar Arora's verified offer letter — no app needed.</p>
+    <div class="badge">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <circle cx="6" cy="6" r="5.5" fill="#1aad78"/>
+        <path d="M3 6.2 L5 8.2 L9 4" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      RN/INT/2026/6486 · Pushkar Arora
+    </div>
+    <div id="qr-wrap"><div id="qrcode"></div></div>
+    <div class="instructions">
+      <strong>How to scan:</strong> Open your phone camera, point at the QR code, and tap the notification. Opens directly in any browser — no app required.
+    </div>
+    <div class="card-footer">ReadyNest Verification System &copy; 2026</div>
+  </div>
+
+  <div id="err-view" class="hidden">
+    <div class="err-box">Invalid or corrupted certificate link.</div>
+    <div class="card-footer">ReadyNest Verification System &copy; 2026</div>
+  </div>
+</div>
+
+<script>
+// Minimal self-contained LZ-string (URI-safe variant)
+var LZString=(function(){var f=String.fromCharCode,keyStrUriSafe="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$",baseReverseDic={};function getBaseValue(a,b){if(!baseReverseDic[a]){baseReverseDic[a]={};for(var c=0;c<a.length;c++)baseReverseDic[a][a.charAt(c)]=c}return baseReverseDic[a][b]}var LZString={compressToEncodedURIComponent:function(a){return LZString._compress(a,6,function(b){return keyStrUriSafe.charAt(b)})},decompressFromEncodedURIComponent:function(a){return a==null?'':a===''?null:(a=a.replace(/ /g,'+'),LZString._decompress(a.length,32,function(b){return getBaseValue(keyStrUriSafe,a.charAt(b))}))},_compress:function(a,b,c){if(a==null)return'';var d,e,f,g={},h={},i='',j='',k='',l=2,m=3,n=2,o=[],p=0,q=0;for(f=0;f<a.length;f+=1){i=a.charAt(f);if(!Object.prototype.hasOwnProperty.call(g,i)){g[i]=m++;h[i]=true}j=k+i;if(Object.prototype.hasOwnProperty.call(g,j))k=j;else{if(Object.prototype.hasOwnProperty.call(h,k)){if(k.charCodeAt(0)<256){for(d=0;d<n;d++){p=p<<1;if(q==b-1){q=0;o.push(c(p));p=0}else q++}e=k.charCodeAt(0);for(d=0;d<8;d++){p=p<<1|e&1;e>>=1;if(q==b-1){q=0;o.push(c(p));p=0}else q++}}else{e=1;for(d=0;d<n;d++){p=p<<1|e;if(q==b-1){q=0;o.push(c(p));p=0}else q++;e=0}e=k.charCodeAt(0);for(d=0;d<16;d++){p=p<<1|e&1;e>>=1;if(q==b-1){q=0;o.push(c(p));p=0}else q++}}l--;if(l==0){l=Math.pow(2,n);n++}delete h[k]}else{e=g[k];for(d=0;d<n;d++){p=p<<1|e&1;e>>=1;if(q==b-1){q=0;o.push(c(p));p=0}else q++}}l--;if(l==0){l=Math.pow(2,n);n++}g[j]=m++;k=String(i)}}if(k!==''){if(Object.prototype.hasOwnProperty.call(h,k)){if(k.charCodeAt(0)<256){for(d=0;d<n;d++){p=p<<1;if(q==b-1){q=0;o.push(c(p));p=0}else q++}e=k.charCodeAt(0);for(d=0;d<8;d++){p=p<<1|e&1;e>>=1;if(q==b-1){q=0;o.push(c(p));p=0}else q++}}else{e=1;for(d=0;d<n;d++){p=p<<1|e;if(q==b-1){q=0;o.push(c(p));p=0}else q++;e=0}e=k.charCodeAt(0);for(d=0;d<16;d++){p=p<<1|e&1;e>>=1;if(q==b-1){q=0;o.push(c(p));p=0}else q++}}l--;if(l==0){l=Math.pow(2,n);n++}}else{e=g[k];for(d=0;d<n;d++){p=p<<1|e&1;e>>=1;if(q==b-1){q=0;o.push(c(p));p=0}else q++}}l--;if(l==0){l=Math.pow(2,n);n++}}e=2;for(d=0;d<n;d++){p=p<<1|e&1;e>>=1;if(q==b-1){q=0;o.push(c(p));p=0}else q++}while(true){p=p<<1;if(q==b-1){o.push(c(p));break}else q++}return o.join('')},_decompress:function(a,b,c){var d,e,f,g,h,i,j,k=[],l=4,m=4,n=3,o='',p=[],q={val:c(0),position:b,index:1};for(i=0;i<3;i+=1)k[i]=i;f=0;g=Math.pow(2,2);h=1;while(h!=g){d=q.val&q.position;q.position>>=1;if(q.position==0){q.position=b;q.val=c(q.index++)}f|=(d>0?1:0)*h;h<<=1}switch(e=f){case 0:f=0;g=Math.pow(2,8);h=1;while(h!=g){d=q.val&q.position;q.position>>=1;if(q.position==0){q.position=b;q.val=c(q.index++)}f|=(d>0?1:0)*h;h<<=1}j=String.fromCharCode(f);break;case 1:f=0;g=Math.pow(2,16);h=1;while(h!=g){d=q.val&q.position;q.position>>=1;if(q.position==0){q.position=b;q.val=c(q.index++)}f|=(d>0?1:0)*h;h<<=1}j=String.fromCharCode(f);break;case 2:return''}k[3]=j;n=4;o=j;p.push(j);while(true){if(q.index>a)return'';f=0;g=Math.pow(2,n);h=1;while(h!=g){d=q.val&q.position;q.position>>=1;if(q.position==0){q.position=b;q.val=c(q.index++)}f|=(d>0?1:0)*h;h<<=1}switch(j=f){case 0:f=0;g=Math.pow(2,8);h=1;while(h!=g){d=q.val&q.position;q.position>>=1;if(q.position==0){q.position=b;q.val=c(q.index++)}f|=(d>0?1:0)*h;h<<=1}k[m++]=String.fromCharCode(f);j=m-1;l--;if(l==0){l=Math.pow(2,n);n++}break;case 1:f=0;g=Math.pow(2,16);h=1;while(h!=g){d=q.val&q.position;q.position>>=1;if(q.position==0){q.position=b;q.val=c(q.index++)}f|=(d>0?1:0)*h;h<<=1}k[m++]=String.fromCharCode(f);j=m-1;l--;if(l==0){l=Math.pow(2,n);n++}break;case 2:return o}l--;if(l==0){l=Math.pow(2,n);n++}if(k[j]){i=k[j]}else{if(j===m){i=o+o.charAt(0)}else{return null}}o=i;p.push(i);k[m++]=o+i.charAt(0);l--;if(l==0){l=Math.pow(2,n);n++}o=i}}}; return LZString;
+})();
+
+const CERT = {
+  name:     "Pushkar Arora",
+  position: "Summer Intern",
+  ref:      "RN/INT/2026/6486",
+  date:     "2026-05-19"
+};
+
+function show(id){ document.getElementById(id).classList.remove('hidden') }
+function hide(id){ document.getElementById(id).classList.add('hidden') }
+function set(id,v){ document.getElementById(id).textContent = v }
+
+function init(){
+  hide('loading-view');
+  const hash = window.location.hash.slice(1);
+
+  if(hash){
+    // CERTIFICATE VIEW — decode from URL hash
+    try {
+      const json = LZString.decompressFromEncodedURIComponent(hash);
+      const d = JSON.parse(json);
+      set('c-name', d.name);
+      set('c-pos',  d.position);
+      set('c-ref',  d.ref);
+      set('c-date', d.date);
+      show('cert-view');
+    } catch(e){
+      show('err-view');
+    }
+  } else {
+    // QR VIEW — compress cert data into hash and generate QR
+    show('qr-view');
+    const compressed = LZString.compressToEncodedURIComponent(JSON.stringify(CERT));
+    const certURL = window.location.href.split('#')[0] + '#' + compressed;
+    new QRCode(document.getElementById("qrcode"), {
+      text: certURL,
+      width: 240,
+      height: 240,
+      colorDark: "#1c1c1c",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }
+}
+
+setTimeout(init, 300);
+</script>
+</body>
+</html>
